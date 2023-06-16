@@ -1,7 +1,7 @@
 line = input()
 
 def check(line):
-    if list(line) == list(reversed(line)):
+    if line == line[::-1]:
         return True
     else:
         return False
