@@ -6,4 +6,4 @@ def check(line):
     else:
         return False
 
-print(check(line))
+# print(check(line))
