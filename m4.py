@@ -7,5 +7,3 @@ def check(line):
         return False
 
 print(check(line))
-
-# print(check(line))
