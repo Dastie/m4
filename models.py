@@ -3,12 +3,16 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.core import validators
 
+def wrong_start(value):
+    if value.startswith('?'):
+        raise validators.ValidationError('Заголовок не может начинаться с вопросительного знака')
 
 User = get_user_model()
 
 class Advertisement(models.Model):
-    title = models.CharField(verbose_name='Название', max_length=128)
+    title = models.CharField(verbose_name='Название', max_length=128, validators=[wrong_start])
     description = models.TextField('Описание')
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     auction = models.BooleanField('Торг', help_text='Укажите, если возможен торг')
@@ -38,7 +42,7 @@ class Advertisement(models.Model):
     @admin.display(description='Изображение')
     def small_image(self):
         if self.image:
-         return format_html('<img src="{}" style="width: 45px; height:45px;"/>', self.image.url)
+         return format_html('<img src="{url}" style="max-width: 80px; max-height: 80px;"/>', url = self.image.url)
         return 'Нет изображения'
 
     class Meta:
