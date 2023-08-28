@@ -13,34 +13,37 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="{% url 'top_sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
+    <a class="nav-link" href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="advertisement-post.html">
+    <a class="nav-link" href="{% url 'adv-post' %}">
       <span style="font-weight: bold;">Разместить объявление</span>
     </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="register.html">
-      <span style="font-weight: bold;">Регистрация</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="login.html">
-      <span style="font-weight: bold;">Войти</span> 
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="profile.html">
-      <span style="font-weight: bold;">Профиль</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-      <span style="font-weight: bold;">Выйти</span>
-    </a>
-  </li>
+  {% if user.is_authenticated %} 
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'profile' %}">
+        <span style="font-weight: bold;">Профиль</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'logout' %}">
+        <span style="font-weight: bold;">Выйти</span>
+      </a>
+    </li>
+  {% else %} 
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'register' %}">
+        <span style="font-weight: bold;">Регистрация</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'login' %}">
+        <span style="font-weight: bold;">Войти</span>
+      </a>
+    </li>
+  {% endif %}
 </ul>
 
 <div id="carouselExampleControls" class="carousel slide bg-primary" data-bs-ride="carousel">
@@ -100,7 +103,7 @@
       <div class="row g-0">
         <div class="col-md-4">
           <a href="advertisement.html" class="nav-link">
-            <img src="{% if adv.image %}{{ adv.image.url }} {% else %}  static/img/adv.png {% endif %}" class="img-fluid rounded-start" alt="Card title">
+            <img src="{% if adv.image %}{{ adv.image.url }} {% else %}  {% static 'img/adv.png'%} {% endif %}" class="img-fluid rounded-start" alt="Card title">
           </a>
         </div>
         <div class="col-md-8">
@@ -143,7 +146,7 @@
              aria-expanded="false">хотите</a>
           <div class="dropdown-menu" aria-labelledby="dropdownId">
             <a class="dropdown-item" href="#">например</a>
-            <a class="dropdown-item" href="#">ссылки на социальные сети</a>
+            <a class="dropdown-item" href="#">ссылки на социальные сети</a> 
           </div>
         </li>
       </ul>
